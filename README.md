@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EFPC Knowledge Management System (KMS) - School MVP
+
+A frontend-only, role-based Knowledge Management System for the Ethiopian Federal Police Commission (EFPC).
+
+This project is built for a school MVP and uses local dummy data only.
+
+## Project Summary
+
+The system helps users:
+
+- Manage and review cases
+- Submit and read after-action reviews
+- Create and read standard procedures
+- Browse a combined knowledge repository
+- View experts and skill profiles
+- Perform admin approvals and basic governance tasks
+
+## Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Redux Toolkit
+- React Redux
+- Lucide Icons
+
+## Important MVP Scope
+
+- Frontend only
+- No backend
+- No API calls
+- No database
+- All data is seeded in Redux slices
+
+## Roles
+
+The app supports 3 roles:
+
+1. Admin
+2. Officer
+3. Viewer
+
+## Mock Login Users
+
+Use the login screen to enter with dummy accounts:
+
+- Inspector Dawit (Admin)
+- Officer Hana (Officer)
+- Analyst Bekele (Viewer)
+
+## Main Features
+
+### Admin
+
+- Dashboard with key counts and activity
+- User management (status toggle, role update, add user)
+- Approvals management
+  - Search by submitter
+  - Filter by approval type
+  - Sort by date/type/submitter
+  - Detail modal shows the actual linked item (Case/AAR/SOP)
+- Audit log with filters and detail modal
+- Settings page
+  - App name
+  - Theme (light/dark)
+  - Language label
+  - Notification toggle
+  - Live application updates through shared shell
+
+### Officer
+
+- Dashboard with quick stats and updates
+- Cases CRUD flow
+- After-action review creation and listing
+- Standard procedure creation and listing
+- Expert directory
+- Knowledge repository
+- Knowledge creation flow
+  - Full form page
+  - Quick add from officer dashboard
+  - Knowledge type options (Case/AAR/SOP)
+
+### Viewer
+
+- Read-only dashboards and module access
+- Repository browsing with bookmark support
+- Read-only views for cases, reviews, procedures, and experts
+
+## UI/UX Notes
+
+- Responsive layout
+- Toggleable sidebar (desktop + mobile drawer)
+- Sidebar logout button
+- Detail modal patterns for cards, lists, and table rows
+- Light blue visual theme with clean contrast
+
+## Project Structure (Key Folders)
+
+```text
+app/
+	admin/
+	officer/
+	viewer/
+	login/
+	glossary/
+components/
+store/
+	slices/
+```
+
+## State Management
+
+Redux Toolkit slices:
+
+- `authSlice`: login/logout and active role state
+- `adminSlice`: users, approvals, audit logs, settings
+- `officerSlice`: cases, reviews, procedures, experts, repository
+- `viewerSlice`: bookmarks, recent views, filters, selected item
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run start
+```
 
-## Learn More
+## School Submission Notes
 
-To learn more about Next.js, take a look at the following resources:
+- This is an MVP simulation for demonstration and academic use.
+- The app is intentionally frontend-only.
+- Data persistence is not included.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Future Improvements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Backend API and database integration
+- Authentication and authorization with secure sessions
+- File uploads and evidence attachments
+- Real notification center and audit export
+- Advanced analytics and reporting
