@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { BookOpen, Clock3, Eye } from "lucide-react";
 import AppShell from "@/components/AppShell";

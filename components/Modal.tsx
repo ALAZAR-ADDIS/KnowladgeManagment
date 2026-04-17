@@ -1,4 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useAppSelector } from "@/store/hooks";
+import { resolveLocale, translateLoose } from "@/lib/i18n";
 
 type ModalProps = {
   open: boolean;
@@ -8,6 +12,9 @@ type ModalProps = {
 };
 
 export default function Modal({ open, title, onClose, children }: ModalProps) {
+  const languageLabel = useAppSelector((state) => state.admin.settings.language);
+  const locale = resolveLocale(languageLabel);
+
   if (!open) return null;
 
   return (
@@ -16,7 +23,7 @@ export default function Modal({ open, title, onClose, children }: ModalProps) {
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
           <button className="text-sm text-slate-500 hover:text-slate-900" onClick={onClose}>
-            Close
+            {translateLoose(locale, "Close")}
           </button>
         </div>
         {children}

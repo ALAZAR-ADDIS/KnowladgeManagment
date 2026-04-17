@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -33,7 +34,13 @@ export default function OfficerAarsPage() {
         <PageHeader title="After-Action Reviews" subtitle="Capture what worked, what failed, and recommendations" action={<Link href="/officer/aars/add" className="rounded-md bg-blue-700 px-3 py-2 text-sm font-medium text-white">Add AAR</Link>} />
         <div className="mb-4 flex flex-wrap items-center gap-3">
           <div className="min-w-64 flex-1"><SearchBar value={query} onChange={setQuery} placeholder="Search AAR ID, case, author" /></div>
-          <select value={caseFilter} onChange={(e) => setCaseFilter(e.target.value)} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">
+          <select
+            value={caseFilter}
+            onChange={(e) => setCaseFilter(e.target.value)}
+            title="Filter by case"
+            aria-label="Filter by case"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          >
             {caseOptions.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>

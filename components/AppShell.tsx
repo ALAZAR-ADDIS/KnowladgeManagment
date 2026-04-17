@@ -3,6 +3,8 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { useAppSelector } from "@/store/hooks";
+import { resolveLocale } from "@/lib/i18n";
+import LocalizedTree from "./LocalizedTree";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import type { Role } from "@/store/slices/types";
@@ -16,6 +18,7 @@ export default function AppShell({ role, children }: AppShellProps) {
   const [desktopSidebarVisible, setDesktopSidebarVisible] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const settings = useAppSelector((state) => state.admin.settings);
+  const locale = resolveLocale(settings.language);
 
   const toggleSidebar = () => {
     if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -48,7 +51,9 @@ export default function AppShell({ role, children }: AppShellProps) {
           mobileOpen={mobileSidebarOpen}
           onCloseMobile={() => setMobileSidebarOpen(false)}
         />
-        <main className="w-full p-4 md:p-6">{children}</main>
+        <main className="w-full p-4 md:p-6">
+          <LocalizedTree locale={locale}>{children}</LocalizedTree>
+        </main>
       </div>
     </div>
   );

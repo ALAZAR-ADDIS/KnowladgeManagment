@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { Activity, ClipboardList, FileClock, Users } from "lucide-react";
 import AppShell from "@/components/AppShell";

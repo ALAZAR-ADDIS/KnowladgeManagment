@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useMemo, useState } from "react";
 import AppShell from "@/components/AppShell";
@@ -10,10 +11,13 @@ import RoleGuard from "@/components/RoleGuard";
 import { addUser, setUserRole, toggleUserStatus } from "@/store/slices/adminSlice";
 import type { Role } from "@/store/slices/types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { resolveLocale, translateLoose } from "@/lib/i18n";
 
 export default function AdminUsersPage() {
   const users = useAppSelector((state) => state.admin.users);
+  const languageLabel = useAppSelector((state) => state.admin.settings.language);
   const dispatch = useAppDispatch();
+  const locale = resolveLocale(languageLabel);
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", username: "", role: "viewer" as Role, department: "" });
@@ -31,11 +35,12 @@ export default function AdminUsersPage() {
             value={row.role}
             onChange={(e) => dispatch(setUserRole({ id: row.id, role: e.target.value as Role }))}
             onClick={(e) => e.stopPropagation()}
+            title="User role"
             className="rounded border border-slate-300 px-2 py-1 text-xs"
           >
-            <option value="admin">admin</option>
-            <option value="officer">officer</option>
-            <option value="viewer">viewer</option>
+            <option value="admin">{translateLoose(locale, "admin")}</option>
+            <option value="officer">{translateLoose(locale, "officer")}</option>
+            <option value="viewer">{translateLoose(locale, "viewer")}</option>
           </select>
         ),
       },
@@ -53,12 +58,12 @@ export default function AdminUsersPage() {
               row.status === "active" ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
             }`}
           >
-            {row.status}
+            {translateLoose(locale, row.status)}
           </button>
         ),
       },
     ],
-    [dispatch],
+    [dispatch, locale],
   );
 
   return (
@@ -80,8 +85,8 @@ export default function AdminUsersPage() {
             <div className="space-y-2 text-sm text-slate-700">
               <p><span className="font-semibold text-slate-900">Name:</span> {selectedUser.name}</p>
               <p><span className="font-semibold text-slate-900">Username:</span> {selectedUser.username}</p>
-              <p><span className="font-semibold text-slate-900">Role:</span> {selectedUser.role}</p>
-              <p><span className="font-semibold text-slate-900">Status:</span> {selectedUser.status}</p>
+              <p><span className="font-semibold text-slate-900">Role:</span> {translateLoose(locale, selectedUser.role)}</p>
+              <p><span className="font-semibold text-slate-900">Status:</span> {translateLoose(locale, selectedUser.status)}</p>
               <p><span className="font-semibold text-slate-900">Department:</span> {selectedUser.department}</p>
             </div>
           ) : null}
@@ -99,9 +104,9 @@ export default function AdminUsersPage() {
                 onChange={(e) => setForm((f) => ({ ...f, role: e.target.value as Role }))}
                 className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
               >
-                <option value="admin">admin</option>
-                <option value="officer">officer</option>
-                <option value="viewer">viewer</option>
+                <option value="admin">{translateLoose(locale, "admin")}</option>
+                <option value="officer">{translateLoose(locale, "officer")}</option>
+                <option value="viewer">{translateLoose(locale, "viewer")}</option>
               </select>
             </label>
             <button
