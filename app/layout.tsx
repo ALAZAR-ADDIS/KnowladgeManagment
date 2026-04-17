@@ -1,8 +1,6 @@
 export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import "./globals.css";
-import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "EFPC Knowledge Management System",
@@ -14,18 +12,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">
-        <Providers>
-          <Suspense>{children}</Suspense>
-        </Providers>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
